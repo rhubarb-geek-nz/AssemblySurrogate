@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="rhubarb-geek-nz/AssemblySurrogate ($(env.PRODUCTARCH))" Language="1033" Version="$(env.PRODUCTVERSION)" Manufacturer="rhubarb-geek-nz" UpgradeCode="$(env.UPGRADECODE)">
+    <Package InstallerVersion="$(env.INSTALLERVERSION)" Compressed="yes" InstallScope="perMachine" Platform="$(env.PRODUCTARCH)" Description="Dual-Interface Hello World Component" Comments="https://github.com/rhubarb-geek-nz/AssemblySurrogate" />
+    <MediaTemplate EmbedCab="yes" />
+    <Feature Id="ProductFeature" Title="setup" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+    <Upgrade Id="{$(env.UPGRADECODE)}">
+      <UpgradeVersion Maximum="$(env.PRODUCTVERSION)" Property="OLDPRODUCTFOUND" OnlyDetect="no" IncludeMinimum="yes" IncludeMaximum="no" />
+    </Upgrade>
+    <InstallExecuteSequence>
+      <RemoveExistingProducts After="InstallInitialize" />
+    </InstallExecuteSequence>
+  </Product>
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="$(env.PRODUCTPROGFILES)">
+        <Directory Id="COMPANYDIR" Name="rhubarb-geek-nz">
+          <Directory Id="INSTALLDIR" Name="AssemblySurrogate" />
+        </Directory>
+      </Directory>
+    </Directory>
+  </Fragment>
+  <Fragment>
+    <ComponentGroup Id="ProductComponents">
+      <Component Id="cmp49644F99A8DC013BD2FA39270E26C76C" Guid="*" Directory="INSTALLDIR" Win64="$(env.PRODUCTWIN64)">
+        <File Id="fil206829A74DFF7880F64BE9D5C35CFF80" KeyPath="yes" Source="..\displib\bin\Release\netstandard2.0\publish\RhubarbGeekNz.AssemblySurrogate.Library.dll" />
+        <RegistryValue Id="reg852b816e97fc34324324324324324f78" Root="HKCR" Key="CLSID\{DE03E384-1A1B-43CC-AE72-9865D01886DC}" Name="AppID" Value="{B08DBCC0-E14A-4CA9-8C44-FC86FB6F140E}" Type="string" Action="write" />
+        <RegistryValue Id="reg852b816e97fc40558f6085a82a262f7e" Root="HKCR" Key="CLSID\{DE03E384-1A1B-43CC-AE72-9865D01886DC}\InprocServer32" Value="mscoree.dll" Type="string" Action="write" />
+        <RegistryValue Id="reg852b816e97fc40558f6085a82a262f7f" Root="HKCR" Key="CLSID\{DE03E384-1A1B-43CC-AE72-9865D01886DC}\InprocServer32" Name="ThreadingModel" Value="Both" Type="string" Action="write" />
+        <RegistryValue Id="reg852b816e97fc40558f6085a82a262f72" Root="HKCR" Key="CLSID\{DE03E384-1A1B-43CC-AE72-9865D01886DC}\InprocServer32" Name="Class" Value="RhubarbGeekNz.AssemblySurrogate.CHelloWorld" Type="string" Action="write" />
+        <RegistryValue Id="reg852b816e97fc40558f6085a82a262f73" Root="HKCR" Key="CLSID\{DE03E384-1A1B-43CC-AE72-9865D01886DC}\InprocServer32" Name="Assembly" Value="RhubarbGeekNz.AssemblySurrogate.Library, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0693c1ad76204d2e" Type="string" Action="write" />
+        <RegistryValue Id="reg852b816e97fc40558f6085a82a262f74" Root="HKCR" Key="CLSID\{DE03E384-1A1B-43CC-AE72-9865D01886DC}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+        <RegistryValue Id="reg852b816e97fc40558f6085a82a262f71" Root="HKCR" Key="CLSID\{DE03E384-1A1B-43CC-AE72-9865D01886DC}\InprocServer32" Name="Codebase" Value="[!fil206829A74DFF7880F64BE9D5C35CFF80]" Type="string" Action="write" />
+        <RegistryValue Id="regc20ac5fc9e314d5cbf17c7fa18fd6e08" Root="HKCR" Key="RhubarbGeekNz.AssemblySurrogate\CLSID" Value="{DE03E384-1A1B-43CC-AE72-9865D01886DC}" Type="string" Action="write" />
+        <RegistryValue Id="reg852b816e97fc40558f35345930495434" Root="HKCR" Key="AppID\{B08DBCC0-E14A-4CA9-8C44-FC86FB6F140E}" Name="DllSurrogate" Value="" Type="string" Action="write" />
+      </Component>
+      <Component Id="cmp49644F99A8DC013BD2FA39270E26C76D" Guid="*" Directory="INSTALLDIR" Win64="$(env.PRODUCTWIN64)">
+        <File Id="fil206829A74DFF7880F64BE9D5C35CFF81" KeyPath="yes" Source="..\displib\bin\Release\netstandard2.0\publish\RhubarbGeekNz.AssemblySurrogate.dll" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>
