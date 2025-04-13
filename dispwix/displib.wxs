@@ -39,6 +39,13 @@
       <Component Id="cmp49644F99A8DC013BD2FA39270E26C76D" Guid="*" Directory="INSTALLDIR" Win64="$(env.PRODUCTWIN64)">
         <File Id="fil206829A74DFF7880F64BE9D5C35CFF81" KeyPath="yes" Source="..\displib\bin\Release\netstandard2.0\publish\RhubarbGeekNz.AssemblySurrogate.dll" />
       </Component>
+      <Component Id="cmpC5599C4E7A1D7E5F3EC4BC0D274676CD" Guid="*" Directory="INSTALLDIR" Win64="$(env.PRODUCTWIN64)">
+        <File Id="fil7BDAEB5BACE2AD371A3F5B3D7BCCF7D8" KeyPath="yes" Source="..\disptlb\RhubarbGeekNz.AssemblySurrogate.tlb">
+          <TypeLib Id="{4B44BC85-00E9-417D-BB60-0282AE3674EE}" Description="Assembly Surrogate Hello World Component 1.0 Type Library" HelpDirectory="INSTALLDIR" Language="0" MajorVersion="1" MinorVersion="0">
+            <Interface Id="{9A967B7D-D146-4AA6-9D5B-CF6CBE4D4187}" Name="IHelloWorld" ProxyStubClassId32="{00020424-0000-0000-C000-000000000046}" />
+          </TypeLib>
+        </File>
+      </Component>
     </ComponentGroup>
   </Fragment>
 </Wix>

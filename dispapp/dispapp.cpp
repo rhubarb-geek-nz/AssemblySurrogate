@@ -5,6 +5,9 @@
 
 #include <objbase.h>
 #include <stdio.h>
+#include <atlbase.h>
+#undef GetMessage
+#import "RhubarbGeekNz.AssemblySurrogate.tlb" no_namespace
 
 int main(int argc, char** argv)
 {
@@ -12,71 +15,33 @@ int main(int argc, char** argv)
 
 	if (SUCCEEDED(hr))
 	{
-		CLSID clsid;
-		HRESULT hr = CLSIDFromString(L"{DE03E384-1A1B-43CC-AE72-9865D01886DC}", &clsid);
+		DWORD ctx[] = { CLSCTX_LOCAL_SERVER, CLSCTX_INPROC_SERVER, CLSCTX_ALL };
+		int i = 0;
 
-		if (SUCCEEDED(hr))
+		while (i < sizeof(ctx) / sizeof(ctx[0]))
 		{
-			DWORD ctx[] = { CLSCTX_LOCAL_SERVER, CLSCTX_INPROC_SERVER, CLSCTX_LOCAL_SERVER | CLSCTX_INPROC_SERVER };
-			int i = 0;
+			CComPtr<IHelloWorld> helloWorld;
 
-			while (i < sizeof(ctx) / sizeof(ctx[0]))
+			hr = helloWorld.CoCreateInstance(__uuidof(CHelloWorld), NULL, ctx[i]);
+
+			if (SUCCEEDED(hr))
 			{
-				IDispatch* dispatch = NULL;
+				CComBSTR bstr;
 
-				hr = CoCreateInstance(clsid, NULL, ctx[i], IID_IDispatch, (void**)&dispatch);
+				hr = helloWorld->raw_GetMessage(1, &bstr);
 
 				if (SUCCEEDED(hr))
 				{
-					DISPID dispId;
-
-					if (SUCCEEDED(hr))
-					{
-						BSTR name = SysAllocString(L"GetMessage");
-						hr = dispatch->GetIDsOfNames(IID_NULL, &name, 1, LOCALE_USER_DEFAULT, &dispId);
-						SysFreeString(name);
-
-						if (SUCCEEDED(hr))
-						{
-							DISPPARAMS params = { 0,0,0,0 };
-							VARIANT result;
-							VariantInit(&result);
-							UINT errArg;
-							EXCEPINFO ex;
-							VARIANT arg;
-
-							arg.vt = VT_I4;
-							arg.intVal = 1;
-
-							ZeroMemory(&ex, sizeof(ex));
-							params.rgvarg = &arg;
-							params.cArgs = 1;
-
-							hr = dispatch->Invoke(dispId, IID_NULL, LOCALE_USER_DEFAULT, DISPATCH_METHOD, &params, &result, &ex, &errArg);
-
-							if (SUCCEEDED(hr) && result.vt == VT_BSTR)
-							{
-								printf("%08lx - %S\n", ctx[i], result.bstrVal);
-							}
-
-							VariantClear(&result);
-						}
-					}
-
-					dispatch->Release();
+					printf("%08lx - %S\n", ctx[i], (BSTR)bstr);
 				}
-
-				if (FAILED(hr))
-				{
-					fprintf(stderr, "%08lx - 0x%lx\n", ctx[i], (long)hr);
-				}
-
-				i++;
 			}
-		}
-		else
-		{
-			fprintf(stderr, "0x%lx\n", (long)hr);
+
+			if (FAILED(hr))
+			{
+				fprintf(stderr, "%08lx - 0x%lx\n", ctx[i], (long)hr);
+			}
+
+			i++;
 		}
 
 		CoUninitialize();
