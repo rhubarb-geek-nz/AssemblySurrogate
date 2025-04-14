@@ -6,7 +6,6 @@
 #include <objbase.h>
 #include <stdio.h>
 #include <atlbase.h>
-#undef GetMessage
 #import "RhubarbGeekNz.AssemblySurrogate.tlb"
 
 int main(int argc, char** argv)
