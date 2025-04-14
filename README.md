@@ -47,13 +47,13 @@ Test with a [C++ app](dispapp/dispapp.cpp) to validated both `CLSCTX_LOCAL_SERVE
 dispapp\bin\arm64\dispapp.exe
 00000004 - Hello World
 00000001 - Hello World
-00000005 - Hello World
+00000017 - Hello World
 dispapp\bin\x64\dispapp.exe
 00000004 - Hello World
 00000001 - Hello World
-00000005 - Hello World
+00000017 - Hello World
 dispapp\bin\x86\dispapp.exe
 00000004 - Hello World
 00000001 - 0x80040154
-00000005 - Hello World
+00000017 - Hello World
 ```

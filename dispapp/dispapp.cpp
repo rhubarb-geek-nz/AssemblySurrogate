@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <atlbase.h>
 #undef GetMessage
-#import "RhubarbGeekNz.AssemblySurrogate.tlb" no_namespace
+#import "RhubarbGeekNz.AssemblySurrogate.tlb"
 
 int main(int argc, char** argv)
 {
@@ -20,9 +20,9 @@ int main(int argc, char** argv)
 
 		while (i < sizeof(ctx) / sizeof(ctx[0]))
 		{
-			CComPtr<IHelloWorld> helloWorld;
+			CComPtr<RhubarbGeekNzAssemblySurrogate::IHelloWorld> helloWorld;
 
-			hr = helloWorld.CoCreateInstance(__uuidof(CHelloWorld), NULL, ctx[i]);
+			hr = helloWorld.CoCreateInstance(__uuidof(RhubarbGeekNzAssemblySurrogate::CHelloWorld), NULL, ctx[i]);
 
 			if (SUCCEEDED(hr))
 			{
